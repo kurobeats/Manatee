@@ -1,0 +1,24 @@
+---
+- name: Disable UAC
+  win_shell: New-ItemProperty -Path HKLM:Software\Microsoft\Windows\CurrentVersion\policies\system -Name EnableLUA -PropertyType DWord -Value 0 -Force
+
+- name: Disable Defender
+  win_shell: New-ItemProperty -Path "HKLM:SOFTWARE\Policies\Microsoft\Windows Defender" -Name DisableAntiSpyware -PropertyType DWord -Value 1 -Force
+
+- name: Disable Firewall
+  win_shell: Set-NetFirewallProfile -Enabled False
+
+- name: Control Panel View
+  win_shell: New-ItemProperty -Path "HKLM:Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel -Name StartupPage -PropertyType DWord -Value 1 -Force
+
+- name: Control Panel Icon Size
+  win_shell: New-ItemProperty -Path "HKLM:Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel" -Name AllItemsIconView -PropertyType DWord -Value 0 -Force
+
+- name: Show hidden files
+  win_shell: New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name Hidden -PropertyType DWord -Value 1 -Force
+
+- name: Show file extensions
+  win_shell: New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name HideFileExt -PropertyType DWord -Value 0 -Force
+
+- name: Keep showing hidden files and file extensions
+  win_shell: New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name ShowSuperHidden -PropertyType DWord -Value 1 -Force
